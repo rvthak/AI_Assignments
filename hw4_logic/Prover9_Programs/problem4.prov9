@@ -1,0 +1,25 @@
+% Saved by Prover9-Mace4 Version 0.5, December 2007.
+% For Problem 4 | sdi1800164
+
+set(ignore_option_dependencies). % GUI handles dependencies
+
+if(Prover9). % Options for Prover9
+  assign(max_seconds, 60).
+end_if.
+
+if(Mace4).   % Options for Mace4
+  assign(max_seconds, 60).
+end_if.
+
+formulas(assumptions).
+
+all x (all y (all z((ln(x,y) & ln(x,z)) <-> ln(x, intersection(y,z))))).
+all y (all z (all x(ln(x,y) -> ln(x,z)) -> subsetOf(y,z))).
+
+end_of_list.
+
+formulas(goals).
+
+all y (all z (subsetOf(intersection(y,z),y))).
+
+end_of_list.

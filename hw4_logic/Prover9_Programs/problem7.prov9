@@ -1,0 +1,49 @@
+% Saved by Prover9-Mace4 Version 0.5, December 2007.
+% For Problem 7 | sdi1800164
+
+set(ignore_option_dependencies). % GUI handles dependencies
+
+if(Prover9). % Options for Prover9
+  assign(max_seconds, 60).
+end_if.
+
+if(Mace4).   % Options for Mace4
+  assign(max_seconds, 60).
+end_if.
+
+formulas(assumptions).
+
+subClassOf( Class, Administrative_Unit).
+subClassOf( Administrative_Unit, Country).
+subClassOf( Administrative_Unit, Decentralized_Administration).
+subClassOf( Administrative_Unit, Region).
+subClassOf( Administrative_Unit, Regional_Unit).
+subClassOf( Administrative_Unit, Municipality).
+subClassOf( Administrative_Unit, Municipality_Unit).
+subClassOf( Administrative_Unit, Municipal_Community).
+subClassOf( Administrative_Unit, Local_Community).
+
+belongsTo(Country, Decentralized_Administration).
+belongsTo(Decentralized_Administration, Region).
+belongsTo(Region, Regional_Unit).
+belongsTo(Regional_Unit, Municipality).
+belongsTo(Municipality, Municipality_Unit).
+belongsTo(Municipality_Unit,  Municipal_Community).
+belongsTo(Municipality_Unit,  Local_Community).
+
+% Class Inheritance
+all x all y all z( subClassOf(x,y) & subClassOf(y,z) -> subClassOf(x,z)).
+
+% Member Inheritance
+all x all y all z( subClassOf(x,y) & memberOf(y,z) -> memberOf(x,z)).
+
+memberOf(Municipality, Municipality_of_Athens).
+
+end_of_list.
+
+formulas(goals).
+
+memberOf(Administrative_Unit, Municipality_of_Athens).
+
+end_of_list.
+

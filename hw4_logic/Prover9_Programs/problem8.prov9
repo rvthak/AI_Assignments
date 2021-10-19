@@ -1,0 +1,61 @@
+% Saved by Prover9-Mace4 Version 0.5, December 2007.
+% For Problem 8 | sdi1800164
+
+set(ignore_option_dependencies). % GUI handles dependencies
+
+if(Prover9). % Options for Prover9
+  assign(max_seconds, 60).
+end_if.
+
+if(Mace4).   % Options for Mace4
+  assign(max_seconds, 60).
+end_if.
+
+formulas(assumptions).
+
+person(Donald).
+person(Melania).
+person(Ivanka).
+person(Barron).
+
+loves(Donald,Donald).
+loves(Donald,Ivanka).
+loves(Ivanka,Donald).
+loves(Melania,Barron).
+loves(Barron,Melania).
+
+% Domain closure axiom
+all x ( x=Donald | x=Melania| x=Ivanka| x=Barron ).
+
+% Unique Name Assumptions
+Donald != Melania.
+Donald != Ivanka.
+Donald != Barron.
+Melania != Ivanka.
+Melania != Barron.
+Ivanka != Barron.
+
+% Predicate Completion 
+all x ((x=Donald | x=Ivanka) <-> loves(x,Donald)).
+all x ((x=Donald) <-> loves(x,Ivanka)).
+all x ((x=Melania) <-> loves(x,Barron)).
+all x ((x=Barron) <-> loves(x,Melania)).
+
+%Answer Literals - Uncomment for (d)
+%-loves(x,Donald) # answer(x).
+
+end_of_list.
+
+formulas(goals).
+
+exists x exists y (loves(x,y) & loves(y,x)). % (c) i)
+%exists x exists y (loves(x,y) & loves(y,x) & x!=y ). % (c) ii)
+%-loves(Melania, Donald). % (c) iii)
+%exists x ( -loves(x, Donald)). % (c) iv)
+%all x exists y ( loves(y,x) & (x!=y)). % (c) v)
+%all x exists y (-loves(x,y) & (x!=y)). % (c) vi)
+%exists x exists y exists z ( loves(x,y) & loves(x,z) & (y!=z)). % (c) vii)
+%all x (loves(x,Donald)). % (d)
+
+end_of_list.
+

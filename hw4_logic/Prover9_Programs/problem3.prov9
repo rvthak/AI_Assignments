@@ -1,0 +1,33 @@
+% Saved by Prover9-Mace4 Version 0.5, December 2007.
+% For Problem 3 | sdi1800164
+
+set(ignore_option_dependencies). % GUI handles dependencies
+
+if(Prover9). % Options for Prover9
+  assign(max_seconds, 60).
+end_if.
+
+if(Mace4).   % Options for Mace4
+  assign(max_seconds, 60).
+end_if.
+
+formulas(assumptions).
+
+member(Kyriakos).
+member(Alexis).
+member(Fofh).
+likes(Alexis, Socialism).
+likes(Alexis, Capitalism).
+
+all x ((member(x) & -right(x)) -> liberal(x)).
+all x (right(x) -> -likes(x, Socialism)).
+all x (-likes(x, Capitalism) -> -liberal(x)).
+
+end_of_list.
+
+formulas(goals).
+
+exists x (member(x) & liberal(x) & -right(x)).
+
+end_of_list.
+

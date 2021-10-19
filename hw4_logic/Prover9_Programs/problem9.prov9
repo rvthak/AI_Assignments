@@ -1,0 +1,61 @@
+% Saved by Prover9-Mace4 Version 0.5, December 2007.
+% For Problem 9 | sdi1800164
+
+set(ignore_option_dependencies). % GUI handles dependencies
+
+if(Prover9). % Options for Prover9
+  assign(max_seconds, 60).
+end_if.
+
+if(Mace4).   % Options for Mace4
+  assign(max_seconds, 60).
+end_if.
+
+formulas(assumptions).
+
+% These people are members
+member(Giannis).
+member(Maria).
+member(Giorgos).
+member(Eleni).
+
+% These people are the only members (Domain Closure axiom)
+all x ( x=Giannis | x=Maria| x=Giorgos | x=Eleni ).
+
+% Giannis and Maria are married
+married(Giannis,Maria).
+married(Maria,Giannis).
+
+% Giorgos and Eleni are siblings
+siblings(Giorgos,Eleni).
+siblings(Eleni,Giorgos).
+
+% If someone is a member then his partner is also a member
+all x all y ( (member(x) & married(x,y)) -> member(y)).
+
+% Unique Name Assumptions : ?very person is unique to allow comparisons
+Giannis != Maria.
+Giannis != Giorgos.
+Giannis != Eleni.
+Maria != Giorgos.
+Maria != Eleni.
+Giorgos != Eleni.
+
+% ____Background knowledge____
+
+% i) If two people are siblings they cant be married
+all x all y (siblings(x,y) -> -married(x,y)).
+
+% ii) Only two people can be married at a time. So if a person is
+% is married to someone, they are not married with anyone else
+all x all y all z ( (married(x,y) & (z!=y)) -> -married(x,z)).
+
+end_of_list.
+
+formulas(goals).
+
+% iii) A Person Can't marry himself
+all x ( (x!=Eleni) -> -married(x,Eleni)).
+
+end_of_list.
+
